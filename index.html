@@ -58,6 +58,13 @@
       cursor: pointer;
     }
 
+    .button-bar div.active-btn {
+      border: 2px solid #ccc;
+    }
+    .button-bar div:not(.active-btn) {
+      border: 0px solid #ccc;
+    }
+
     .button-bar div:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 6px rgba(0,0,0,0.15);
@@ -223,7 +230,7 @@
   </div>
 
   <div class="button-bar">
-    <div id="supplier-btn">Supplier</div>
+    <div id="supplier-btn" class="active-btn">Supplier</div>
     <div id="consumer-btn">Consumer</div>
     <div id="vc-btn">VC</div>
   </div>
@@ -282,6 +289,14 @@
     function showBox(id) {
       allBoxes.forEach(box => box.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+
+      // 重置所有按钮颜色
+      [supplierBtn, consumerBtn, vcBtn].forEach(btn => btn.classList.remove('active-btn'));
+
+      // 当前按钮变黑
+      if (id === 'supplier-box') supplierBtn.classList.add('active-btn');
+      else if (id === 'consumer-box') consumerBtn.classList.add('active-btn');
+      else if (id === 'vc-box') vcBtn.classList.add('active-btn');
     }
 
     supplierBtn.onclick = () => showBox('supplier-box');
